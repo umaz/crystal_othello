@@ -1,4 +1,4 @@
-require 'benchmark'
+require "benchmark"
 require "./game"
 
 #[引き分け数, 先手勝ち数, 後手勝ち数]
@@ -6,20 +6,20 @@ result = [0,0,0] #1回目
 reverse_result = [0,0,0] #入れ替え後
 
 print("AI1:")
-first = gets.chomp.to_i
+first = gets.to_s.chomp.to_i
 print("AI2:")
-second = gets.chomp.to_i
+second = gets.to_s.chomp.to_i
 print("対局回数:")
-n = gets.chomp!.to_i
+n = gets.to_s.chomp.to_i
 
 benchmark = Benchmark.measure do
   n.times do
-    winner = Game.new(3, nil, [first, second])
+    winner = Game.new([first, second])
     result[winner.end_game] += 1
   end
   # 順番を入れ替える
   n.times do
-    winner = Game.new(3, nil, [second, first])
+    winner = Game.new([second, first])
     reverse_result[winner.end_game] += 1
   end
 end
@@ -31,5 +31,4 @@ print("AI2(レベル#{second}):#{result[-1]+reverse_result[1]}勝(先手:#{rever
 print("#{result[0]+reverse_result[0]}引き分け\n")
 
 puts ""
-puts Benchmark::CAPTION
 puts benchmark

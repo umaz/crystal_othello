@@ -79,7 +79,7 @@ class Com < Player
   private def lv4(board : Board) : Array(Int32)
     putable_cells = get_putable_cells(board)
     best_score, candicate_cells = set_default_value
-    depth = 4 #先読みの深さ
+    depth = 5 #先読みの深さ
     putable_cells.each do |cell|
       undo = board.board.clone #深いコピー
       board.reverse(cell[0], cell[1], @color)
@@ -104,7 +104,7 @@ class Com < Player
   private def lv5(board : Board) : Array(Int32)
     putable_cells = get_putable_cells(board)
     best_score, candicate_cells, alpha, beta = set_default_value
-    depth = 5 #先読みの深さ
+    depth = 7 #先読みの深さ
     putable_cells.each do |cell|
       undo = board.board.clone #深いコピー
       board.reverse(cell[0], cell[1], @color)
@@ -130,11 +130,11 @@ class Com < Player
     putable_cells = get_putable_cells(board)
     best_score, candicate_cells, alpha, beta = set_default_value
     depth = -1 #先読みの深さ
-    if turn > 49
+    if turn > 46
       score_type = PERFECT
     else
       score_type = BOARD
-      depth = 5
+      depth = 6
     end
     putable_cells.each do |cell|
       undo = board.board.clone #深いコピー
@@ -161,13 +161,13 @@ class Com < Player
     putable_cells = get_putable_cells(board)
     best_score, candicate_cells, alpha, beta = set_default_value
     depth = -1 #先読みの深さ
-    if turn > 49
+    if turn > 46
       score_type = PERFECT
-    elsif turn > 47
+    elsif turn > 43
       score_type = WINNER
     else
       score_type = BOARD
-      depth = 5
+      depth = 6
     end
     putable_cells.each do |cell|
       undo = board.board.clone #深いコピー
@@ -194,13 +194,13 @@ class Com < Player
     putable_cells = get_putable_cells(board)
     best_score, candicate_cells, alpha, beta = set_default_value
     depth = -1 #先読みの深さ
-    if turn > 49
+    if turn > 46
       score_type = PERFECT
-    elsif turn > 47
+    elsif turn > 43
       score_type = WINNER
     else
       score_type = HANDS
-      depth = 5
+      depth = 6
     end
     putable_cells.each do |cell|
       undo = board.board.clone #深いコピー
