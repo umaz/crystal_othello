@@ -125,7 +125,7 @@ class Com < Player
     return put_cell
   end
 
-  # 50手から完全読み
+  # 47手から完全読み
   private def lv6(board : Board, turn : Int32) : Array(Int32)
     putable_cells = get_putable_cells(board)
     best_score, candicate_cells, alpha, beta = set_default_value
@@ -156,7 +156,7 @@ class Com < Player
     return put_cell
   end
 
-  # 47手で勝敗読み
+  # 44手で勝敗読み
   private def lv7(board : Board, turn : Int32) : Array(Int32)
     putable_cells = get_putable_cells(board)
     best_score, candicate_cells, alpha, beta = set_default_value
