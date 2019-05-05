@@ -10,7 +10,7 @@ class Human < Player
     end
     print(cell_list, "\n")
     print(turn, "手目: ")
-    move = gets.chomp! #手の取得
+    move = gets.to_s.chomp! #手の取得
     if move =~ /[a-h][1-8]/
       cell = move.split("")
       col = COL_NUM[cell[0]]
