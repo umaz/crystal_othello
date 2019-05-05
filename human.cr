@@ -6,7 +6,7 @@ class Human < Player
     cell_list = "" #着手可能場所の一覧
     putable_cells = board.get_putable_cells(@color)
     putable_cells.each do |cell|
-      cell_list += "(" + COL_NUM.key(cell[1]) + ROW_NUM.key(cell[0]) + ")"
+      cell_list += "(" + COL_NUM.key_for(cell[1]) + ROW_NUM.key_for(cell[0]) + ")"
     end
     print(cell_list, "\n")
     print(turn, "手目: ")
