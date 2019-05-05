@@ -14,4 +14,4 @@ b = a.x.clone
 p b
 a.update
 p a.x
-p b
+p b.includes?([1,2])

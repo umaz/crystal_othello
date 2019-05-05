@@ -3,7 +3,8 @@ class Player
     @color = color
   end
 
-  def put_stone(board : Board, turn : Int32)
+  def put_stone(board : Board, turn : Int32) : Array(Int32)
+    return [0,0]
   end
 
   getter :color

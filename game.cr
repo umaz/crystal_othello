@@ -15,6 +15,9 @@ class Game
     when SECOND
       @first = Com.new(BLACK, lv)
       @second = Human.new(WHITE)
+    else
+      @first = Com.new(BLACK, lv)
+      @second = Com.new(WHITE, lv)
     end
     @player = @first #黒石からスタート
     start
