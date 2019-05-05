@@ -4,31 +4,41 @@ require "./human"
 require "./com"
 
 class Game
-  def initialize(mode, order, lv)
-    case mode
-    when COM
-      case order
-      when FIRST
-        @first = Human.new(BLACK)
-        @second = Com.new(WHITE, lv)
-      when SECOND
-        @first = Com.new(BLACK, lv)
-        @second = Human.new(WHITE)
-      end
-    when HUMAN
+  @turn = 0
+  @board = Board.new
+
+  def initialize(order : Int32, lv : Int32)
+    case order
+    when FIRST
       @first = Human.new(BLACK)
+      @second = Com.new(WHITE, lv)
+    when SECOND
+      @first = Com.new(BLACK, lv)
       @second = Human.new(WHITE)
-    when WATCH
-      @first = Com.new(BLACK, lv[0])
-      @second = Com.new(WHITE, lv[1])
     end
-    @turn = 0
     @player = @first #黒石からスタート
-    @board = Board.new
+    start
+  end
+
+  def initialize()
+    @first = Human.new(BLACK)
+    @second = Human.new(WHITE)
+    @player = @first #黒石からスタート
+    start
+  end
+
+  def initialize(lv : Array(Int32))
+    @first = Com.new(BLACK, lv[0])
+    @second = Com.new(WHITE, lv[1])
+    @player = @first #黒石からスタート
+    start
+  end
+
+  def start
     @board.show_board
     phase
   end
-
+  
   getter :player
   getter :turn
 

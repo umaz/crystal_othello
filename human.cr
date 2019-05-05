@@ -2,7 +2,7 @@ require "./constant"
 require "./player"
 
 class Human < Player
-  def put_stone(board, turn)
+  def put_stone(board : Board, turn : Int32)
     cell_list = "" #着手可能場所の一覧
     putable_cells = board.get_putable_cells(@color)
     putable_cells.each do |cell|
