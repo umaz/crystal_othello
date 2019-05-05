@@ -29,8 +29,8 @@ class Game
     phase
   end
 
-  attr_reader :player
-  attr_reader :turn
+  getter :player
+  getter :turn
 
   #手番の流れ
   def phase

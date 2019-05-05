@@ -33,17 +33,16 @@ class Com < Player
     return cell
   end
 
-  private
-  def lv1(board)
+  private def lv1(board)
     putable_cells = get_putable_cells(board)
     put_cell = putable_cells.sample #空きますからランダムに1つ取得
     return put_cell
   end
 
   #BOARD_SCOREのもっとも大きくなるマスに石を打つ
-  def lv2(board)
+  private def lv2(board)
     putable_cells = get_putable_cells(board)
-    best_score, candicate_cells = set_default_value
+    best_score, candicate_cells = set_private default_value
     putable_cells.each do |cell|
       score = BOARD_SCORE[cell[0]][cell[1]]
       candicate_cells, best_score = evaluate(cell, score, best_score, candicate_cells)
@@ -53,9 +52,9 @@ class Com < Player
   end
 
   #BOARD_SCOREの合計が最も大きくなるマスに打つ
-  def lv3(board)
+  private def lv3(board)
     putable_cells = get_putable_cells(board)
-    best_score, candicate_cells = set_default_value
+    best_score, candicate_cells = set_private default_value
     putable_cells.each do |cell|
       # undo = Marshal.load(Marshal.dump(board.board)) これでも可
       undo = board.board.map(&:dup) #深いコピー
@@ -76,9 +75,9 @@ class Com < Player
   end
 
   #depth手先まで読む
-  def lv4(board)
+  private def lv4(board)
     putable_cells = get_putable_cells(board)
-    best_score, candicate_cells = set_default_value
+    best_score, candicate_cells = set_private default_value
     depth = 4 #先読みの深さ
     putable_cells.each do |cell|
       # undo = Marshal.load(Marshal.dump(board.board)) これでも可
@@ -100,9 +99,9 @@ class Com < Player
   end
 
   #alphabeta方で読みの高速化
-  def lv5(board)
+  private def lv5(board)
     putable_cells = get_putable_cells(board)
-    best_score, candicate_cells, alpha, beta = set_default_value
+    best_score, candicate_cells, alpha, beta = set_private default_value
     depth = 5 #先読みの深さ
     putable_cells.each do |cell|
       # undo = Marshal.load(Marshal.dump(board.board)) これでも可
@@ -124,9 +123,9 @@ class Com < Player
   end
 
   # 50手から完全読み
-  def lv6(board, turn)
+  private def lv6(board, turn)
     putable_cells = get_putable_cells(board)
-    best_score, candicate_cells, alpha, beta = set_default_value
+    best_score, candicate_cells, alpha, beta = set_private default_value
     depth = -1 #先読みの深さ
     if turn > 49
       score_type = PERFECT
@@ -154,9 +153,9 @@ class Com < Player
   end
 
   # 47手で勝敗読み
-  def lv7(board, turn)
+  private def lv7(board, turn)
     putable_cells = get_putable_cells(board)
-    best_score, candicate_cells, alpha, beta = set_default_value
+    best_score, candicate_cells, alpha, beta = set_private default_value
     depth = -1 #先読みの深さ
     if turn > 49
       score_type = PERFECT
@@ -186,9 +185,9 @@ class Com < Player
   end
 
   # BOARD_SCOREだけでなく着手可能手数も考慮に入れる
-  def lv8(board, turn)
+  private def lv8(board, turn)
     putable_cells = get_putable_cells(board)
-    best_score, candicate_cells, alpha, beta = set_default_value
+    best_score, candicate_cells, alpha, beta = set_private default_value
     depth = -1 #先読みの深さ
     if turn > 49
       score_type = PERFECT
@@ -217,13 +216,13 @@ class Com < Player
     return put_cell
   end
 
-  def get_putable_cells(board)
+  private def get_putable_cells(board)
     putable_cells = board.get_putable_cells(@color)
     print(cell_list(putable_cells), "\n")
     return putable_cells
   end
 
-  def set_default_value
+  private def set_default_value
     best_score = -9999999999
     candicate_cells = [[0,0]]
     alpha = -9999999999
@@ -231,7 +230,7 @@ class Com < Player
     return best_score, candicate_cells, alpha, beta
   end
 
-  def evaluate(cell, score, best_score, candicate_cells)
+  private def evaluate(cell, score, best_score, candicate_cells)
     print(COL_NUM.key(cell[1]) + ROW_NUM.key(cell[0]), ": ", score, "\n")
     if score > best_score
       candicate_cells = [cell]
@@ -242,7 +241,7 @@ class Com < Player
     return candicate_cells, best_score
   end
 
-  def minmax(board, depth, color)
+  private def minmax(board, depth, color)
     best_score = 9999
     putable_cells = board.get_putable_cells(color)
     putable_cells.each do |cell|
@@ -271,7 +270,7 @@ class Com < Player
     return best_score
   end
 
-  def alphabeta(board, depth, color, alpha, beta, score_type)
+  private def alphabeta(board, depth, color, alpha, beta, score_type)
     best_score = 9999
     putable_cells = board.get_putable_cells(color)
     putable_cells.each do |cell|
@@ -330,7 +329,7 @@ class Com < Player
     return best_score
   end
 
-  def board_score(board)
+  private def board_score(board)
     score = 0
     #スコアの算出
     board.board.each_with_index do |row, i|
@@ -343,7 +342,7 @@ class Com < Player
     return score
   end
 
-  def winner_score(board)
+  private def winner_score(board)
     #スコアの算出
     result = board.count
     score = @color * (result[0] - result[1]) #石差
@@ -356,7 +355,7 @@ class Com < Player
     end
   end
 
-  def perfect_score(board)
+  private def perfect_score(board)
     #スコアの算出
     result = board.count
     score = @color * (result[0] - result[1]) #石差
@@ -364,7 +363,7 @@ class Com < Player
   end
 
   #状態判定
-  def status(board, color, depth)
+  private def status(board, color, depth)
     if depth == 0
       return FINISH
     else
@@ -380,7 +379,7 @@ class Com < Player
     end
   end
   
-  def cell_list(putable_cells)
+  private def cell_list(putable_cells)
     cell_list = "" #着手可能場所の一覧
     putable_cells.each do |cell|
       cell_list += "(" + COL_NUM.key(cell[1]) + ROW_NUM.key(cell[0]) + ")"
@@ -388,7 +387,7 @@ class Com < Player
     return cell_list
   end
 
-  def select_com_move(candicate_cells)
+  private def select_com_move(candicate_cells)
     cell = candicate_cells.sample
     return cell
   end  
