@@ -23,9 +23,11 @@ class Board
   #現在の盤の状態を表示
   def show_board
     print("\n\n  #{COL_NUM.keys.join(" ")}") #列
-    p true
     @board.each_with_index do |row, i| #番兵を除く
-      print(ROW_NUM[(i).to_s])
+      begin        
+        print(ROW_NUM[(i).to_s])
+      rescue
+      end
       row.each do |col|
         case col
         when EMPTY
