@@ -1,7 +1,17 @@
-def set
-  return 1, 2, 3
+class Ai
+  def initialize
+    @x = [[1,2], [3,4]]
+  end
+  def update
+    @x[0][0] = 5
+  end
+  getter :x
 end
-
-a, b = set
-p a
+  
+a = Ai.new
+p a.x
+b = a.x.clone
 p b
+a.update
+p a.x
+p b.includes?([1,2])

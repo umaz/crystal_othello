@@ -1,4 +1,4 @@
-require_relative "./constant"
+require "./constant"
 
 class Board
   #新しい盤
@@ -18,13 +18,16 @@ class Board
     ]
   end
 
-  attr_reader :board
+  getter :board
 
   #現在の盤の状態を表示
   def show_board
     print("\n\n  #{COL_NUM.keys.join(" ")}") #列
     @board.each_with_index do |row, i| #番兵を除く
-      print(ROW_NUM[(i).to_s])
+      begin        
+        print(ROW_NUM[(i).to_s])
+      rescue
+      end
       row.each do |col|
         case col
         when EMPTY
@@ -187,7 +190,7 @@ class Board
 
   #ひっくり返せるマスの一覧を取得
   def get_putable_cells(color)
-    putable_cells = []
+    putable_cells = [] of Array(Int32)
     @board.each_with_index do |row, i|
       row.each_with_index do |col, j|
         if col == EMPTY #空きマス
